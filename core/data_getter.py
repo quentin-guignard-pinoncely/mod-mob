@@ -71,7 +71,7 @@ class DataGetter:
         ]
         self.trajectories = (
             self.trajectories.groupby(self.column_id)[
-                self.column_mode, self.column_pattern, self.column_distance
+                [self.column_mode, self.column_pattern, self.column_distance]
             ]
             .apply(lambda x: x.values.tolist())
             .sort_index()

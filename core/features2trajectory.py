@@ -94,8 +94,8 @@ class Features2Trajectory:
                 )[0][0]
             ]
             + (
-                self.y_test[indiv, i, -1] * self.dg.distance_scale
-                + self.dg.distance_mean,
+                self.y_test[indiv, i, -1] * self.dg.distance_scale[0]
+                + self.dg.distance_mean[0],
             )
             for i in range(self.dg.trajectory_len)
         ]
