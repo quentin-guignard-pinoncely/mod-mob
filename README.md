@@ -13,17 +13,18 @@ Cette métohodologie se divise en 2 parties :
 2. Apprentissage d'un RNN "vector to sequence" pour la prédiction d'une séquence de déplacement à partir d'un vecteur de caractéristiques socio-économiques
 
 **Sommaire**<a id='toc0_'></a>    
-- [Récupération des données](#toc1_)    
-  - [Features](#toc1_1_)    
-  - [Trajectoires](#toc1_2_)    
-- [Embedding des couples (mode, motif)](#toc2_)    
-  - [Description du modèle](#toc2_1_)    
-  - [Entrainement du modèle](#toc2_2_)    
-  - [Visualisation](#toc2_3_)    
-- [RNN vector to Sequence](#toc3_)    
-  - [Description du modèle](#toc3_1_)    
-  - [Entrainement du modèle](#toc3_2_)    
-  - [Exemple de prédiction](#toc3_3_)    
+- [Modélisation des mobilités quotidiennes des individus](#modélisation-des-mobilités-quotidiennes-des-individus)
+  - [Récupération des données  ↑](#récupération-des-données--)
+      - [Features ↑](#features-)
+      - [Trajectoires ↑](#trajectoires-)
+  - [Embedding des couples (mode, motif) ↑](#embedding-des-couples-mode-motif-)
+    - [Description du modèle ↑](#description-du-modèle-)
+    - [Entrainement du modèle ↑](#entrainement-du-modèle-)
+    - [Visualisation ↑](#visualisation-)
+  - [RNN vector to Sequence ↑](#rnn-vector-to-sequence-)
+    - [Description du modèle ↑](#description-du-modèle--1)
+    - [Entrainement du modèle ↑](#entrainement-du-modèle--1)
+    - [Exemple de prédiction ↑](#exemple-de-prédiction-)
 
 <!-- vscode-jupyter-toc-config
 	numbering=false
@@ -42,19 +43,6 @@ One-hot encoding des features CSP, type de commune et nombre de voitures.
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -220,6 +208,7 @@ Nous apprenons un modèle équivalent à word2vec : "un déplacement, définit p
 
 ### <a id='toc2_1_'></a>Description du modèle [&#8593;](#toc0_)
 
+Exemple de notre modèle avec un embeddin en 2 dimensions : 
 
     Model: "sequential"
     _________________________________________________________________
@@ -266,6 +255,9 @@ Instanciation d'un RNN "vector to sequence".
     - l'output est de dimension : `(n_individus, trajectory_len, embedding_dim+1)`. 
 
 
+Description du modèle :
+
+
     Model: "sequential_1"
     _________________________________________________________________
      Layer (type)                Output Shape              Param #   
@@ -287,9 +279,9 @@ Instanciation d'un RNN "vector to sequence".
 
 
 ### <a id='toc3_3_'></a>Exemple de prédiction [&#8593;](#toc0_)
+Exemple de prédiction sur un individu du jeu test
 
     Vérité :
-    
     [('3', '3', 12.0),
      ('3', '1', 12.0),
      ('<pad>', '<pad>', 0.0),
@@ -307,9 +299,7 @@ Instanciation d'un RNN "vector to sequence".
      ('<pad>', '<pad>', 0.0),
      ('<pad>', '<pad>', 0.0)]
 
-
     Prédiction :
-
     [('3', '3', 8.819596),
      ('3', '8', 6.8386908),
      ('<pad>', '<pad>', 4.405218),
