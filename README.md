@@ -5,19 +5,19 @@ Ces premiers travaux ont pour objectifs de qualifier la pertinence de l'utilisat
 
 
 Définitions : 
-- **Déplacement** : un déplacement est défini par un triplet (mode de déplacement, motif de déplacement, distance parcourue)
+- **Déplacement** : un déplacement est défini par un triplet `(mode de déplacement, motif de déplacement, distance parcourue)`
 - **Séquence de déplacements** : c'est une suite ordonnée de déplacement effectué par un individu sur une journée.
 
 Cette métohodologie se divise en 2 parties :
-1. Apprentissage d'un modèle d'embedding pour effectuer un plongement sémentique des couples (mode, motif)
-2. Apprentissage d'un RNN "vector to sequence" pour la prédiction d'une séquence de déplacement à partir d'un vecteur de caractéristiques socio-économiques
+1. Apprentissage d'un **modèle d'embedding** pour effectuer un plongement sémentique des couples `(mode, motif)`
+2. Apprentissage d'**un RNN "vector to sequence"** pour la prédiction d'une séquence de déplacement à partir d'un vecteur de caractéristiques socio-économiques
 
 **Sommaire**<a id='toc0_'></a>    
 - [Modélisation des mobilités quotidiennes des individus](#modélisation-des-mobilités-quotidiennes-des-individus)
   - [Récupération des données  ↑](#récupération-des-données--)
       - [Features ↑](#features-)
       - [Trajectoires ↑](#trajectoires-)
-  - [Embedding des couples (mode, motif) ↑](#embedding-des-couples-mode-motif-)
+  - [Embedding des couples `(mode, motif)` ↑](#embedding-des-couples-mode-motif-)
     - [Description du modèle ↑](#description-du-modèle-)
     - [Entrainement du modèle ↑](#entrainement-du-modèle-)
     - [Visualisation ↑](#visualisation-)
@@ -187,7 +187,7 @@ One-hot encoding des features CSP, type de commune et nombre de voitures.
 
 
 #### <a id='toc1_2_'></a>Trajectoires [&#8593;](#toc0_)
-Pour chaque individu nous récupérons une suite de déplacements définis par un triplet (mode, motif, distance)
+Pour chaque individu nous récupérons une suite de déplacements définis par un triplet `(mode, motif, distance)`
 
 
     individual_id
@@ -200,15 +200,16 @@ Pour chaque individu nous récupérons une suite de déplacements définis par u
 
 
 
-## <a id='toc2_'></a>Embedding des couples (mode, motif) [&#8593;](#toc0_)
+## <a id='toc2_'></a>Embedding des couples `(mode, motif)` [&#8593;](#toc0_)
 
 L'objectif de ce modèle est d'apprendre un plongement sémentique de notre vocabulaire de déplacements.
 
-Nous apprenons un modèle équivalent à word2vec : "un déplacement, définit par le couple (motif, mode), est à une trajectoire, ce qu'un mot est à une phrase"
+Nous apprenons un modèle équivalent à word2vec :  
+*"un déplacement, définit par le couple `(mode, motif)`, est à une trajectoire, ce qu'un mot est à une phrase"*
 
 ### <a id='toc2_1_'></a>Description du modèle [&#8593;](#toc0_)
 
-Exemple de notre modèle avec un embeddin en 2 dimensions : 
+Exemple de notre modèle avec un embedding en 2 dimensions : 
 
     Model: "sequential"
     _________________________________________________________________
@@ -251,7 +252,7 @@ Instanciation d'un RNN "vector to sequence".
     - les features ont été "*one-hot encoded*"
     - l'input est de dimension `(n_individus, trajectory_len, n_features)`. 
 - **Output** 
-    - séquence de déplacements sur une journée. Un déplacement est défini par le triplet (*motif, mode, distance*)
+    - séquence de déplacements sur une journée. Un déplacement est défini par le triplet `(motif, mode, distance)`
     - l'output est de dimension : `(n_individus, trajectory_len, embedding_dim+1)`. 
 
 
